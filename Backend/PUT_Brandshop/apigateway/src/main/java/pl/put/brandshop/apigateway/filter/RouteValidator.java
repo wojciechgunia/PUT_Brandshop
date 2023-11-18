@@ -29,7 +29,11 @@ public class RouteValidator
     )
     );
 
-    private Set<Endpoint> adminEndpoints = new HashSet<>();
+    private Set<Endpoint> adminEndpoints = new HashSet<>(List.of(
+            new Endpoint("/auth/set-role", HttpMethod.PATCH, Role.ADMIN),
+            new Endpoint("/auth/set-lock", HttpMethod.PATCH, Role.ADMIN)
+    )
+    );
 
     public void addEndpoints(List<Endpoint> endpoints)
     {
