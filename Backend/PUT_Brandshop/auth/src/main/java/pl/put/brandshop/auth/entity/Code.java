@@ -9,7 +9,8 @@ public enum Code
     A3("Wskazany token jest pusty lub nie ważny"),
     A4("Użytkownik o wskazanej nazwie już istnieje"),
     A5("Użytkownik o wskazanym adresie e-mail już istnieje"),
-    A6("Użytkownik nie istnieje");
+    A6("Użytkownik nie istnieje"),
+    A7("Odmowa dostępu");
 
 
 
