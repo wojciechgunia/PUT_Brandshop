@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="apigateway" />
+        <module name="file" />
         <module name="RegisterEndpointInformation" />
         <module name="auth" />
         <module name="eureka" />
@@ -31,6 +32,7 @@
       <module name="apigateway" options="-parameters" />
       <module name="auth" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="file" options="-parameters" />
       <module name="product" options="-parameters -Amapstruct.defaultComponentModel=spring" />
     </option>
   </component>
