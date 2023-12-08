@@ -10,7 +10,7 @@ import pl.put.brandshop.file.mediator.MediatorFile;
 @RestController
 @RequestMapping(value = "/api/v1/file")
 @RequiredArgsConstructor
-public class ImageController
+public class FileController
 {
 
     private final MediatorFile mediatorImage;
