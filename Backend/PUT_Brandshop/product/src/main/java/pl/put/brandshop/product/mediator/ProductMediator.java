@@ -105,7 +105,7 @@ public class ProductMediator
         {
             for(int i = 0; i < product.getImageUrls().length; i++)
             {
-                product.getImageUrls()[i] = FILE_SERVICE+"?uid"+product.getImageUrls()[i];
+                product.getImageUrls()[i] = FILE_SERVICE+"?uid="+product.getImageUrls()[i];
             }
             return ResponseEntity.ok(product);
         }
