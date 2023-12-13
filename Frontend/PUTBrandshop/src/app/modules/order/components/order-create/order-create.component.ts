@@ -5,6 +5,8 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { OrderService } from 'src/app/modules/core/services/order.service';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-order-create',
@@ -17,11 +19,13 @@ export class OrderCreateComponent {
   @ViewChild(CustomerFormComponent) customerFormComp!: CustomerFormComponent;
   @ViewChild(AddressFormComponent) addressFormComp!: AddressFormComponent;
   @ViewChild(DeliveryFormComponent) deliveryFormComp!: DeliveryFormComponent;
+  @ViewChild(PaymentFormComponent) paymentFormComp!: PaymentFormComponent;
 
   constructor(
     private location: Location,
     private router: Router,
     private orderService: OrderService,
+    private notifier: NotifierService
   ) {}
 
   OnInit(): void {
@@ -41,15 +45,20 @@ export class OrderCreateComponent {
     if (
       this.customerFormComp.customerForm.valid &&
       this.addressFormComp.addressForm.valid &&
-      this.deliveryFormComp.deliverForm.valid
+      this.deliveryFormComp.deliverForm.valid &&
+      this.paymentFormComp.paymentForm.valid
     ) {
       this.orderService
         .addOrder({
           address: this.addressFormComp.addressForm.getRawValue(),
           deliver: this.deliveryFormComp.deliverForm.getRawValue(),
           customerDetails: this.customerFormComp.customerForm.getRawValue(),
+          payment: this.paymentFormComp.paymentForm.getRawValue(),
         })
         .subscribe({
+          next: () => {
+            this.notifier.notify('success', 'Zamówienie zostało złożone');
+          },
           error: (err) => {
             this.errorMsg = err;
           },

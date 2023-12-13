@@ -1,7 +1,8 @@
-import { Address } from "./address.model";
-import { BasketProduct } from "./basket.model";
-import { Customer } from "./customer.model";
-import { GetDelivery, PostDelivery } from "./delivery.model";
+import { Address } from './address.model';
+import { BasketProduct } from './basket.model';
+import { Customer } from './customer.model';
+import { GetDelivery, PostDelivery } from './delivery.model';
+import { PostPayment } from './payment.model';
 
 export interface GetOrderResponse {
   uuid: string;
@@ -14,12 +15,16 @@ export interface GetOrderResponse {
   summaryPrice: number;
 }
 
-export type GetOrdersResponse = Omit<GetOrderResponse, 'items' | 'summaryPrice'>
+export type GetOrdersResponse = Omit<
+  GetOrderResponse,
+  'items' | 'summaryPrice'
+>;
 
 export interface PostOrder {
   customerDetails: Customer;
   address: Address;
   deliver: PostDelivery;
+  payment: PostPayment;
 }
 
 export interface PostOrderResponse {
