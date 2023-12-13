@@ -14,6 +14,9 @@ import { UserAdministrationComponent } from './components/administrator/user-adm
 import { ProductAdministrationComponent } from './components/administrator/product-administration/product-administration.component';
 import { CategoryAdministrationComponent } from './components/administrator/category-administration/category-administration.component';
 import { OrderListComponent } from './components/administrator/order-list/order-list.component';
+import { DialogConfirmComponent } from './components/administrator/dialog-confirm/dialog-confirm.component';
+import { ProductEditorComponent } from './components/administrator/product-administration/product-editor/product-editor.component';
+import { DialogImageComponent } from './components/administrator/dialog-image/dialog-image.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { OrderListComponent } from './components/administrator/order-list/order-
     ProductAdministrationComponent,
     CategoryAdministrationComponent,
     OrderListComponent,
+    DialogConfirmComponent,
+    ProductEditorComponent,
+    DialogImageComponent,
   ],
   imports: [SharedModule, AdministrationRoutingModule, AngularEditorModule],
 })

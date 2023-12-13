@@ -85,7 +85,6 @@ export class ProductsService {
     category: string | null = null
   ): Observable<GetProductAdminResponse> {
     // eslint-disable-next-line prefer-const
-    console.log('start');
     let params = new HttpParams()
       .append('_page', pageIndex)
       .append('_limit', itemsPerPage);
@@ -115,7 +114,6 @@ export class ProductsService {
       .pipe(
         map((response) => {
           if (!response.body) {
-            console.log('no');
             return { products: [], totalCount: 0 };
           } else {
             const totalCount = Number(response.headers.get('X-Total-Count'));

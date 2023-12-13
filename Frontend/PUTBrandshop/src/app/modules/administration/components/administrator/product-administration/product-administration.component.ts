@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +20,8 @@ import {
 } from 'rxjs';
 import { Product } from 'src/app/modules/core/models/product.model';
 import { ProductsService } from 'src/app/modules/core/services/products.service';
+import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-product-administration',
@@ -57,7 +60,9 @@ export class ProductAdministrationComponent
   constructor(
     private productService: ProductsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+    private notifier: NotifierService
   ) {
     this.dataSource = new MatTableDataSource();
   }
@@ -75,6 +80,34 @@ export class ProductAdministrationComponent
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  deleteProduct(uuid: string, name: string) {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: {
+        name: 'Usuń produkt',
+        question: 'Czy napewno chcesz usunąć produkt ' + name,
+      },
+      width: '300px',
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '200ms',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.productService.deleteProduct(uuid).subscribe({
+          next: () => {
+            this.notifier.notify('success', 'Pomyślnie usunięto produkt');
+            this.products = this.products.filter((prod) => {
+              return prod.uid !== uuid;
+            });
+            this.dataSource = new MatTableDataSource(this.products);
+          },
+          error: () => {
+            this.notifier.notify('warning', 'Wystąpił błąd');
+          },
+        });
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -120,7 +153,6 @@ export class ProductAdministrationComponent
         }),
         map((response) => {
           this.products = [...response.products];
-          console.log(this.products);
           this.dataSource = new MatTableDataSource(this.products);
           this.totalCount = response.totalCount;
         })
