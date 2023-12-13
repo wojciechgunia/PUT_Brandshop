@@ -39,11 +39,11 @@ public class ProductService
     @PersistenceContext
     EntityManager entityMenager;
 
-    public long countActiveProducts(String name, String category, Float priceMin, Float priceMax){
+    public long countActiveProducts(String name, String category, Float priceMin, Float priceMax, boolean admin){
         CriteriaBuilder criteriaBuilder = entityMenager.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
         Root<ProductEntity> root = query.from(ProductEntity.class);
-        List<Predicate> predicates = prepareQuery(name,category,priceMin,priceMax,criteriaBuilder,root);
+        List<Predicate> predicates = prepareQuery(name,category,priceMin,priceMax,criteriaBuilder,root,admin);
         query.select(criteriaBuilder.count(root)).where(predicates.toArray(new Predicate[0]));
         return entityMenager.createQuery(query).getSingleResult();
     }
@@ -52,7 +52,7 @@ public class ProductService
         return null;
     }
 
-    public List<ProductEntity> getProduct(String name, String category, Float priceMin, Float priceMax, String data, int page, int limit, String sort, String order)
+    public List<ProductEntity> getProduct(String name, String category, Float priceMin, Float priceMax, String data, int page, int limit, String sort, String order, boolean admin)
     {
         CriteriaBuilder criteriaBuilder = entityMenager.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = criteriaBuilder.createQuery(ProductEntity.class);
@@ -66,7 +66,7 @@ public class ProductService
         }
         page=lowerThanOne(page);
         limit=lowerThanOne(limit);
-        List<Predicate> predicates = prepareQuery(name,category,priceMin,priceMax,criteriaBuilder,root);
+        List<Predicate> predicates = prepareQuery(name,category,priceMin,priceMax,criteriaBuilder,root, admin);
 
         if(!order.isEmpty() && !sort.isEmpty())
         {
@@ -114,7 +114,7 @@ public class ProductService
         return number;
     }
 
-    private List<Predicate> prepareQuery(String name, String category, Float priceMin, Float priceMax, CriteriaBuilder criteriaBuilder,Root<ProductEntity> root)
+    private List<Predicate> prepareQuery(String name, String category, Float priceMin, Float priceMax, CriteriaBuilder criteriaBuilder,Root<ProductEntity> root,boolean admin)
     {
         List<Predicate> predicates = new ArrayList<>();
         if(name != null && !name.trim().equals(""))
@@ -134,7 +134,10 @@ public class ProductService
         {
             predicates.add(criteriaBuilder.lessThan(root.get("price"),priceMax+0.01));
         }
-        predicates.add(criteriaBuilder.isTrue(root.get("activate")));
+        if(!admin)
+        {
+            predicates.add(criteriaBuilder.isTrue(root.get("activate")));
+        }
         return predicates;
     }
 

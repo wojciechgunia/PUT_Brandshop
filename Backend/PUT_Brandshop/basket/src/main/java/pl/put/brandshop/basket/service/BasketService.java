@@ -171,7 +171,7 @@ public class BasketService
                         try
                         {
                             Product product = getProduct(item.getProduct());
-                            listBasketItemDTO.getBasketProducts().add(new BasketItemDTO(product.getUid(),product.getName(), item.getQuantity(), product.getImageUrls()[0], product.getPrice(), (product.getPrice()*item.getQuantity())));
+                            listBasketItemDTO.getBasketProducts().add(new BasketItemDTO(product.getUid(),product.getName(), item.getQuantity(), product.getImageUrls()[0], product.getPrice(), (product.getPrice()*item.getQuantity()),product.getCreateAt()));
                             listBasketItemDTO.setSummaryPrice(listBasketItemDTO.getSummaryPrice() + (product.getPrice()*item.getQuantity()));
                         }
                         catch (URISyntaxException e)

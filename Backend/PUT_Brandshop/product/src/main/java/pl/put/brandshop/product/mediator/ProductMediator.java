@@ -30,9 +30,9 @@ public class ProductMediator
     private final ProductEntityToProductDTO productEntityToProductDTO;
     private final ProductFormToProductEntity productFormToProductEntity;
 
-    public ResponseEntity<?> getProduct(int page, int limit, String name, String category, Float price_min, Float price_max, String data, String sort, String order)
+    public ResponseEntity<?> getProduct(int page, int limit, String name, String category, Float price_min, Float price_max, String data, String sort, String order, boolean admin)
     {
-        if(name != null && !name.isEmpty())
+        if((name != null && !name.isEmpty()))
         {
             try
             {
@@ -42,20 +42,29 @@ public class ProductMediator
                 throw new RuntimeException(e);
             }
         }
-        List<ProductEntity> product = productService.getProduct(name, category, price_min, price_max, data, page, limit,sort,order);
+        List<ProductEntity> product = productService.getProduct(name, category, price_min, price_max, data, page, limit,sort,order,admin);
         product.forEach(value->{
             for (int i = 0; i < value.getImageUrls().length; i++){
                 value.getImageUrls()[i] = FILE_SERVICE+"?uid="+value.getImageUrls()[i];
             }
         });
-        if(name == null || name.isEmpty() || data == null || data.isEmpty())
+        if((name == null || name.isEmpty() || data == null || data.isEmpty())&&!admin)
         {
             List<SimpleProductDTO> simpleProductDTOS = new ArrayList<>();
-            long totalCount = productService.countActiveProducts(name, category, price_min, price_max);
+            long totalCount = productService.countActiveProducts(name, category, price_min, price_max, admin);
             product.forEach(value->{
                 simpleProductDTOS.add(productEntityToSimpleProduct.toSimpleProduct(value));
             });
             return ResponseEntity.ok().header("X-Total-Count",String.valueOf(totalCount)).body(simpleProductDTOS);
+        }
+        if(admin)
+        {
+            List<ProductDTO> ProductDTOS = new ArrayList<>();
+            long totalCount = productService.countActiveProducts(name, category, price_min, price_max, admin);
+            product.forEach(value->{
+                ProductDTOS.add(productEntityToProductDTO.toProductDTO(value));
+            });
+            return ResponseEntity.ok().header("X-Total-Count",String.valueOf(totalCount)).body(ProductDTOS);
         }
         ProductDTO productDTO = productEntityToProductDTO.toProductDTO(product.get(0));
         return ResponseEntity.ok().body(productDTO);
