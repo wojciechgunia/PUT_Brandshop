@@ -134,10 +134,7 @@ public class ProductService
         {
             predicates.add(criteriaBuilder.lessThan(root.get("price"),priceMax+0.01));
         }
-        if(!admin)
-        {
-            predicates.add(criteriaBuilder.isTrue(root.get("activate")));
-        }
+        predicates.add(criteriaBuilder.isTrue(root.get("activate")));
         return predicates;
     }
 
