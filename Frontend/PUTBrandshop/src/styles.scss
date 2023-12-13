@@ -1,45 +1,57 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-// @use '@angular/material' as mat;
-// // Plus imports for other components in your app.
+@import 'node_modules/angular-notifier/styles.scss';
 
-// // Include the common styles for Angular Material. We include this here so that you only
-// // have to load a single css file for Angular Material in your app.
-// // Be sure that you only ever include this mixin once!
-// @include mat.core();
-
-// // Define the palettes for your theme using the Material Design palettes available in palette.scss
-// // (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// // hue. Available color palettes: https://material.io/design/color/
-// $PUTBrandshop-primary: mat.define-palette();
-// $PUTBrandshop-accent: mat.define-palette(, A200, A100, A400);
-
-// // The warn palette is optional (defaults to red).
-// $PUTBrandshop-warn: mat.define-palette();
-
-// // Create the theme object. A theme consists of configurations for individual
-// // theming systems such as "color" or "typography".
-// $PUTBrandshop-theme: mat.define-light-theme(
-//   (
-//     color: (
-//       primary: $PUTBrandshop-primary,
-//       accent: $PUTBrandshop-accent,
-//       warn: $PUTBrandshop-warn,
-//     ),
-//   )
-// );
-
-// // Include theme styles for core and each component used in your app.
-// // Alternatively, you can import and @include the theme mixins for each component
-// // that you are using.
-// @include mat.all-component-themes($PUTBrandshop-theme);
-
-/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
 }
 body {
   margin: 0;
+  font-family: Roboto, 'Montserrat', sans-serif;
+  color: var(--text-accent-color);
+}
+
+app-root {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 90px;
+}
+
+app-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.dialog {
+  min-width: 400px;
+}
+
+.text {
+  margin: 30px 0;
+  color: var(--text-accent-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.header-container {
+  margin-top: 70px;
+
+  .header-blue {
+    color: var(--accent-color);
+    font-size: 2.4rem;
+    font-weight: bold;
+  }
+
+  .header-line {
+    background-color: var(--accent-color);
+    height: 2px;
+    width: 100%;
+  }
 }
