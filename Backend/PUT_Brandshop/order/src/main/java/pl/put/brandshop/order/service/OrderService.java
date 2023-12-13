@@ -5,8 +5,10 @@ import pl.put.brandshop.order.entity.notify.Notify;
 import pl.put.brandshop.order.exceptions.EmptyBasketException;
 import pl.put.brandshop.order.exceptions.OrderDontExistException;
 import pl.put.brandshop.order.exceptions.UknowDeliveryTypException;
+import pl.put.brandshop.order.exceptions.UknowPaymentTypException;
 import pl.put.brandshop.order.repository.DeliverRepository;
 import pl.put.brandshop.order.repository.OrderRepository;
+import pl.put.brandshop.order.repository.PaymentRepository;
 import pl.put.brandshop.order.translators.BasketItemDTOToOrderItems;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderService
 {
     private final DeliverRepository deliverRepository;
+    private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
     private final BasketService basketService;
     private final ItemService itemService;
@@ -90,6 +93,7 @@ public class OrderService
     private Order save(Order order)
     {
         Deliver deliver = deliverRepository.findByUuid(order.getDeliver().getUuid()).orElseThrow(UknowDeliveryTypException::new);
+        Payment payment = paymentRepository.findByUuid(order.getPayment().getUuid()).orElseThrow(UknowPaymentTypException::new);
         StringBuilder stringBuilder = new StringBuilder("ORDER/")
                 .append(orderRepository.count())
                 .append("/")
@@ -101,6 +105,7 @@ public class OrderService
         order.setStatus(Status.PENDING);
         order.setOrders(stringBuilder.toString());
         order.setDeliver(deliver);
+        order.setPayment(payment);
         return orderRepository.saveAndFlush(order);
     }
 
