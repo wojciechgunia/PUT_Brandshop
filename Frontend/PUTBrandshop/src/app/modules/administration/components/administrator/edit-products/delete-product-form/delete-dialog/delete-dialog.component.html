@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Czy usunąć produkt?</h2>
+<mat-dialog-content>
+  <div *ngIf="product">
+    <p class="text-center">{{ product.name }}</p>
+    <p class="text-center">{{ product.price | currency: 'zł' }}</p>
+    <div class="my-2">
+      <img
+        [src]="product.imageUrls[0]"
+        class="img-fluid mx-auto d-block"
+        [alt]="product.name"
+        style="max-height: 400px"
+      />
+    </div>
+    <p class="text-center">{{ product.mainDesc }}</p>
+  </div>
+  <app-alert
+    *ngIf="error"
+    [alertType]="'warning'"
+    [message]="error"
+  ></app-alert>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Anuluj</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="deleteProduct()"
+    [disabled]="!product"
+  >
+    Usuń
+  </button>
+</mat-dialog-actions>

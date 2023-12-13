@@ -1,0 +1,34 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
+  <h3>Formularz dodawania kategorii</h3>
+  <div class="form-input">
+    <mat-form-field appearance="fill">
+      <mat-label>Nazwa kategorii</mat-label>
+      <input matInput [formControl]="controls.name" />
+      <mat-error *ngIf="controls.name.invalid">{{
+        getErrorMessage('name', controls.name)
+      }}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-input mt-4">
+    <div class="form-button">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="categoryForm.invalid"
+      >
+        Dodaj kategorię
+      </button>
+    </div>
+  </div>
+  <app-alert
+    *ngIf="successMsg"
+    [message]="successMsg"
+    [alertType]="'success'"
+  ></app-alert>
+  <app-alert
+    *ngIf="errorMsg"
+    [message]="errorMsg"
+    [alertType]="'warning'"
+  ></app-alert>
+</form>
