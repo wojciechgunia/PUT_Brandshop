@@ -1,5 +1,4 @@
-export interface IUser
-{
+export interface IUser {
   login: string;
   email: string;
   role: string;
@@ -9,8 +8,22 @@ export class User {
   constructor(
     public login: string,
     public email: string,
-    public role: string,
+    public role: string
   ) {}
+}
+
+export interface UserAdminis {
+  uuid: string;
+  login: string;
+  email: string;
+  role: string;
+  islock: boolean;
+  isenabled: boolean;
+}
+
+export interface GetUsersAdminResponse {
+  users: UserAdminis[];
+  totalCount: number;
 }
 
 export interface LoginData {
@@ -35,8 +48,7 @@ export interface AuthResponse {
   code: string;
 }
 
-export interface LoggedInResponse extends Omit<AuthResponse,'message'>
-{
+export interface LoggedInResponse extends Omit<AuthResponse, 'message'> {
   access: boolean;
 }
 

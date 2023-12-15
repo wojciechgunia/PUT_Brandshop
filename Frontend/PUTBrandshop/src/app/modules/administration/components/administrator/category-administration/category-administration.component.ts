@@ -125,6 +125,7 @@ export class CategoryAdministrationComponent
           this.categories = [...response.categories];
           this.dataSource = new MatTableDataSource(this.categories);
           this.totalCount = response.totalCount;
+          this.paginator.length = response.totalCount;
         })
       )
       .subscribe({

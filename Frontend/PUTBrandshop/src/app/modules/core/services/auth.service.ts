@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import {
   AuthResponse,
+  GetUsersAdminResponse,
   IUser,
   LoggedInResponse,
   LoginData,
   RecoveryPasswordData,
   RegisterData,
   ResetPasswordData,
+  UserAdminis,
 } from '../models/auth.model';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -59,5 +61,87 @@ export class AuthService {
 
   changePassword(body: ResetPasswordData): Observable<AuthResponse> {
     return this.http.patch<AuthResponse>(`${this.apiUrl}/reset-password`, body);
+  }
+
+  lockUser(uuid: string, login: string): Observable<AuthResponse> {
+    return this.http.patch<AuthResponse>(
+      `${this.apiUrl}/set-lock`,
+      {
+        uid: uuid,
+        login: login,
+        lock: true,
+      },
+      { withCredentials: true }
+    );
+  }
+
+  unlockUser(uuid: string, login: string): Observable<AuthResponse> {
+    return this.http.patch<AuthResponse>(
+      `${this.apiUrl}/set-lock`,
+      {
+        uid: uuid,
+        login: login,
+        lock: false,
+      },
+      { withCredentials: true }
+    );
+  }
+
+  changeRole(
+    uuid: string,
+    login: string,
+    role: string
+  ): Observable<AuthResponse> {
+    return this.http.patch<AuthResponse>(
+      `${this.apiUrl}/set-role`,
+      {
+        uid: uuid,
+        login: login,
+        role: role,
+      },
+      { withCredentials: true }
+    );
+  }
+
+  getUsersAdmin(
+    pageIndex = 1,
+    itemsPerPage = 15,
+    name: string | null = null,
+    sortUser: string | null = null,
+    orderUser: string | null = null
+  ): Observable<GetUsersAdminResponse> {
+    // eslint-disable-next-line prefer-const
+    let params = new HttpParams()
+      .append('_page', pageIndex)
+      .append('_limit', itemsPerPage);
+
+    if (name) {
+      params = params.append('name_like', name);
+    }
+
+    if (sortUser) {
+      params = params.append('_sort', sortUser);
+    }
+
+    if (orderUser) {
+      params = params.append('_order', orderUser);
+    }
+
+    return this.http
+      .get<UserAdminis[]>(`${this.apiUrl}/admin-get`, {
+        observe: 'response',
+        params,
+        withCredentials: true,
+      })
+      .pipe(
+        map((response) => {
+          if (!response.body) {
+            return { users: [], totalCount: 0 };
+          } else {
+            const totalCount = Number(response.headers.get('X-Total-Count'));
+            return { users: [...response.body], totalCount };
+          }
+        })
+      );
   }
 }

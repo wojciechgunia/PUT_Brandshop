@@ -15,6 +15,7 @@ import { OrderListComponent } from './components/administrator/order-list/order-
 import { DialogConfirmComponent } from './components/administrator/dialog-confirm/dialog-confirm.component';
 import { ProductEditorComponent } from './components/administrator/product-administration/product-editor/product-editor.component';
 import { DialogImageComponent } from './components/administrator/dialog-image/dialog-image.component';
+import { DialogChangeRoleComponent } from './components/administrator/user-administration/dialog-change-role/dialog-change-role.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DialogImageComponent } from './components/administrator/dialog-image/di
     DialogConfirmComponent,
     ProductEditorComponent,
     DialogImageComponent,
+    DialogChangeRoleComponent,
   ],
   imports: [SharedModule, AdministrationRoutingModule, AngularEditorModule],
 })

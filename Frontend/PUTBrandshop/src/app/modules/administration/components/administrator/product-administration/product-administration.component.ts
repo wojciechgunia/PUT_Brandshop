@@ -151,6 +151,7 @@ export class ProductAdministrationComponent
           this.products = [...response.products];
           this.dataSource = new MatTableDataSource(this.products);
           this.totalCount = response.totalCount;
+          this.paginator.length = response.totalCount;
         })
       )
       .subscribe({
