@@ -41,7 +41,8 @@ public class CategoryMediator
         }
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
         categoryService.getAdminCategory(name, page, limit, true).forEach(value -> {categoryDTOS.add(categoryToCategoryDTO.toCategoryDTO(value));});
-        return ResponseEntity.ok(categoryDTOS);
+        long totalCount = categoryService.countActiveCategory(name, true);
+        return ResponseEntity.ok().header("X-Total-Count",String.valueOf(totalCount)).body(categoryDTOS);
     }
 
     public void createCategory(CategoryDTO categoryDTO) throws ObjectExistInDBException
