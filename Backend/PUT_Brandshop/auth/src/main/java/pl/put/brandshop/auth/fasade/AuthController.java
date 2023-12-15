@@ -172,6 +172,16 @@ public class AuthController
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/admin-get")
+    public ResponseEntity<?> getAdmin(HttpServletRequest request,
+                                      @RequestParam(required = false) String name_like,
+                                      @RequestParam(required = false,defaultValue = "1") int _page,
+                                      @RequestParam(required = false,defaultValue = "10") int _limit,
+                                      @RequestParam(required = false,defaultValue = "price") String _sort,
+                                      @RequestParam(required = false,defaultValue = "asc") String _order)
+    {
+        return userService.getUsers(_page,_limit,name_like,_sort,_order);
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

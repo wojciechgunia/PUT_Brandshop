@@ -1,6 +1,9 @@
 package pl.put.brandshop.auth.services;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +25,13 @@ import pl.put.brandshop.auth.exceptions.UserExistingWithName;
 import pl.put.brandshop.auth.repository.ResetOperationsRepository;
 import pl.put.brandshop.auth.repository.UserRepository;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +50,9 @@ public class UserService
     private int exp;
     @Value("${jwt.refresh.exp}")
     private int refreshExp;
+
+    @PersistenceContext
+    EntityManager entityMenager;
     private User saveUser(User user)
     {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -305,5 +317,85 @@ public class UserService
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthResponse(Code.A2));
         }
+    }
+
+    public ResponseEntity<?> getUsers(int page, int limit, String name, String sort, String order)
+    {
+        if((name != null && !name.isEmpty()))
+        {
+            try
+            {
+                name = URLDecoder.decode(name, "UTF-8");
+            } catch (UnsupportedEncodingException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        List<UserDTO> userDTOS = new ArrayList<>();
+        getAdminUsers(name, page, limit, sort, order, true).forEach(value -> {userDTOS.add(new UserDTO(value.getUuid(), value.getLogin(), value.getEmail(), value.getPassword(), value.getRole(), value.isLock(), value.isEnabled()));});
+        long totalCount = userRepository.count();
+        return ResponseEntity.ok().header("X-Total-Count",String.valueOf(totalCount)).body(userDTOS);
+    }
+
+    private List<User> getAdminUsers(String name, int page, int limit, String sort, String order, boolean admin)
+    {
+        CriteriaBuilder criteriaBuilder = entityMenager.getCriteriaBuilder();
+        CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+
+        page=lowerThanOne(page);
+        limit=lowerThanOne(limit);
+        List<Predicate> predicates = prepareQuery(name,criteriaBuilder,root, admin);
+
+        if(!order.isEmpty() && !sort.isEmpty())
+        {
+            String column = "login";
+            switch (sort)
+            {
+                case "login":
+                    column="login";
+                    break;
+
+                case "email":
+                    column="email";
+                    break;
+
+                case "role":
+                    column="role";
+                    break;
+            }
+            Order orderQuery;
+            if(order.equals("desc"))
+            {
+                orderQuery = criteriaBuilder.desc(root.get(column));
+            }
+            else
+            {
+                orderQuery = criteriaBuilder.asc(root.get(column));
+            }
+            query.orderBy(orderQuery);
+        }
+
+        query.where(predicates.toArray(new Predicate[0]));
+        return entityMenager.createQuery(query).setFirstResult((page-1)*limit).setMaxResults(limit).getResultList();
+    }
+
+    private int lowerThanOne(int number)
+    {
+        if(number<1)
+        {
+            return 1;
+        }
+        return number;
+    }
+
+    private List<Predicate> prepareQuery(String name, CriteriaBuilder criteriaBuilder,Root<User> root,boolean admin)
+    {
+        List<Predicate> predicates = new ArrayList<>();
+        if(name != null && !name.trim().equals(""))
+        {
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("login")), "%" + name.toLowerCase() + "%"));
+        }
+        return predicates;
     }
 }
