@@ -22,6 +22,7 @@ import { Product } from 'src/app/modules/core/models/product.model';
 import { ProductsService } from 'src/app/modules/core/services/products.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { NotifierService } from 'angular-notifier';
+import { MatSort, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-product-administration',
@@ -56,6 +57,7 @@ export class ProductAdministrationComponent
   filteredOptions!: Observable<Product[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private productService: ProductsService,
@@ -111,13 +113,7 @@ export class ProductAdministrationComponent
   }
 
   ngAfterViewInit(): void {
-    // this.productService.getProducts().subscribe({
-    //   next: (response) => {
-    //     this.products = [...response.products];
-    //     this.totalCount = response.totalCount;
-    //   },
-    // });
-
+    this.dataSource.sort = this.sort;
     this.route.queryParamMap
       .pipe(
         switchMap((queryMap) => {
@@ -177,7 +173,14 @@ export class ProductAdministrationComponent
     this.navigateToSearchedParams();
   }
 
-  sortProduct() {
+  sortProduct(sort: Sort) {
+    if (sort.direction) {
+      this.sortControl.setValue(sort.active);
+      this.orderControl.setValue(sort.direction);
+    } else {
+      this.sortControl.setValue('');
+      this.orderControl.setValue('');
+    }
     this.paginator.pageIndex = 0;
     this.navigateToSearchedParams();
   }

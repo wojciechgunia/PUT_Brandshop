@@ -7,9 +7,7 @@ import { AddCategoryComponent } from './components/administrator/add-category/ad
 import { EditProductsComponent } from './components/administrator/edit-products/edit-products.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddProductFormComponent } from './components/administrator/edit-products/add-product-form/add-product-form.component';
-import { DeleteProductFormComponent } from './components/administrator/edit-products/delete-product-form/delete-product-form.component';
 import { UploadedImagesComponent } from './components/administrator/edit-products/add-product-form/uploaded-images/uploaded-images.component';
-import { DeleteDialogComponent } from './components/administrator/edit-products/delete-product-form/delete-dialog/delete-dialog.component';
 import { UserAdministrationComponent } from './components/administrator/user-administration/user-administration.component';
 import { ProductAdministrationComponent } from './components/administrator/product-administration/product-administration.component';
 import { CategoryAdministrationComponent } from './components/administrator/category-administration/category-administration.component';
@@ -24,9 +22,7 @@ import { DialogImageComponent } from './components/administrator/dialog-image/di
     AddCategoryComponent,
     EditProductsComponent,
     AddProductFormComponent,
-    DeleteProductFormComponent,
     UploadedImagesComponent,
-    DeleteDialogComponent,
     UserAdministrationComponent,
     ProductAdministrationComponent,
     CategoryAdministrationComponent,
