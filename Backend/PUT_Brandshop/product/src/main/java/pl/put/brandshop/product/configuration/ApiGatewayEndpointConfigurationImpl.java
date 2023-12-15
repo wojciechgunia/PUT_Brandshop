@@ -36,6 +36,7 @@ public class ApiGatewayEndpointConfigurationImpl implements ApiGatewayEndpointCo
         endpointList.add(new Endpoint("api/v1/category", HttpMethod.GET, Role.GUEST));
         endpointList.add(new Endpoint("api/v1/category", HttpMethod.POST, Role.ADMIN));
         endpointList.add(new Endpoint("api/v1/category", HttpMethod.DELETE, Role.ADMIN));
+        endpointList.add(new Endpoint("api/v1/category/get-admin", HttpMethod.GET, Role.ADMIN));
     }
 
     @Override

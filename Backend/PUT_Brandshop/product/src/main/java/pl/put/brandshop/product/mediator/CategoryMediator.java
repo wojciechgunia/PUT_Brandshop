@@ -9,6 +9,8 @@ import pl.put.brandshop.product.exceptions.ObjectExistInDBException;
 import pl.put.brandshop.product.service.CategoryService;
 import pl.put.brandshop.product.translator.CategoryToCategoryDTO;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,23 @@ public class CategoryMediator
     {
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
         categoryService.getCategory().forEach(value -> {categoryDTOS.add(categoryToCategoryDTO.toCategoryDTO(value));});
+        return ResponseEntity.ok(categoryDTOS);
+    }
+
+    public ResponseEntity<List<CategoryDTO>> getAdminCategory(int page, int limit, String name)
+    {
+        if((name != null && !name.isEmpty()))
+        {
+            try
+            {
+                name = URLDecoder.decode(name, "UTF-8");
+            } catch (UnsupportedEncodingException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        List<CategoryDTO> categoryDTOS = new ArrayList<>();
+        categoryService.getAdminCategory(name, page, limit, true).forEach(value -> {categoryDTOS.add(categoryToCategoryDTO.toCategoryDTO(value));});
         return ResponseEntity.ok(categoryDTOS);
     }
 

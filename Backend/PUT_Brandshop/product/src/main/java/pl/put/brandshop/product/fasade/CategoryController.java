@@ -1,5 +1,6 @@
 package pl.put.brandshop.product.fasade;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,14 @@ public class CategoryController
     public ResponseEntity<List<CategoryDTO>> getCategory()
     {
         return categoryMediator.getCategory();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/get-admin")
+    public ResponseEntity<?> getAdminCategory(HttpServletRequest request, @RequestParam(required = false) String name_like,
+                                                              @RequestParam(required = false,defaultValue = "1") int _page,
+                                                              @RequestParam(required = false,defaultValue = "10") int _limit)
+    {
+        return categoryMediator.getAdminCategory(_page,_limit,name_like);
     }
 
     @RequestMapping(method = RequestMethod.POST)
