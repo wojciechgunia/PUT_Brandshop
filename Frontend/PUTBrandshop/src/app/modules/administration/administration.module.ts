@@ -17,6 +17,8 @@ import { ProductEditorComponent } from './components/administrator/product-admin
 import { DialogImageComponent } from './components/administrator/dialog-image/dialog-image.component';
 import { DialogChangeRoleComponent } from './components/administrator/user-administration/dialog-change-role/dialog-change-role.component';
 import { OrderModule } from '../order/order.module';
+import { DialogCategoryAddComponent } from './components/administrator/category-administration/dialog-category-add/dialog-category-add.component';
+import { DialogSetStatusComponent } from './components/administrator/order-list/dialog-set-status/dialog-set-status.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { OrderModule } from '../order/order.module';
     ProductEditorComponent,
     DialogImageComponent,
     DialogChangeRoleComponent,
+    DialogCategoryAddComponent,
+    DialogSetStatusComponent,
   ],
   imports: [
     SharedModule,

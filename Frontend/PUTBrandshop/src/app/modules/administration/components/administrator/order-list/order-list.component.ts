@@ -15,6 +15,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { DialogSetStatusComponent } from './dialog-set-status/dialog-set-status.component';
 
 @Component({
   selector: 'app-order-list',
@@ -67,7 +68,7 @@ export class OrderListComponent implements AfterViewInit, OnDestroy {
   }
 
   changeStatus(uuid: string, status: string) {
-    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+    const dialogRef = this.dialog.open(DialogSetStatusComponent, {
       data: {
         status: status,
       },
@@ -77,7 +78,8 @@ export class OrderListComponent implements AfterViewInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result) {
-        this.orderService.changeStatus(uuid, status).subscribe({
+        console.log(result);
+        this.orderService.changeStatus(uuid, result).subscribe({
           next: () => {
             this.notifier.notify('success', 'Pomyślnie zmieniono status');
             this.orders.find((value) => {
@@ -140,5 +142,44 @@ export class OrderListComponent implements AfterViewInit, OnDestroy {
       relativeTo: this.route,
       queryParams,
     });
+  }
+
+  changeStatusName(name: string) {
+    switch (name) {
+      case 'PENDING': {
+        return 'Zamówienie złożone';
+      }
+
+      case 'WAITING_FOR_CONFIRMATION': {
+        return 'Oczekuje na potwierdzenie';
+      }
+
+      case 'COMPLETED': {
+        return 'Zamówienie złożone';
+      }
+
+      case 'PAID': {
+        return 'Zamówienie opłacone';
+      }
+
+      case 'CANCELED': {
+        return 'Zamówienie anulowane';
+      }
+
+      case 'SENT': {
+        return 'Zamówienie wysłane';
+      }
+
+      case 'DELIVERED': {
+        return 'Zamówienie zrealizowane';
+      }
+
+      case 'RETURNED': {
+        return 'Zamówienie zwrócone';
+      }
+
+      default:
+        return '';
+    }
   }
 }

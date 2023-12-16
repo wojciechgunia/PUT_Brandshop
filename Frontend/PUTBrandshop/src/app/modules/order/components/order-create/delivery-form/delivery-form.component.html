@@ -1,9 +1,9 @@
-<form [formGroup]="deliverForm">
-  <div class="form-input justify-content-start">
+<form [formGroup]="deliverForm" class="d-flex flex-wrap w-100">
+  <div class="form-input justify-content-start w-100">
     <h3>Wybierz opcję wysyłki:</h3>
   </div>
 
-  <div class="form-input d-flex justify-content-around">
+  <div class="form-input d-flex justify-content-between">
     <div *ngFor="let delivery of deliveries" style="width: 32%">
       <app-select-box
         [selected]="selected"

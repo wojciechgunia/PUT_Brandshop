@@ -22,6 +22,7 @@ import {
   map,
 } from 'rxjs';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
+import { DialogCategoryAddComponent } from './dialog-category-add/dialog-category-add.component';
 
 @Component({
   selector: 'app-category-administration',
@@ -89,10 +90,11 @@ export class CategoryAdministrationComponent
         this.categoryService.deleteCategory(uuid).subscribe({
           next: () => {
             this.notifier.notify('success', 'Pomyślnie usunięto kategorie');
-            this.categories = this.categories.filter((prod) => {
-              return prod.shortId !== uuid;
-            });
-            this.dataSource = new MatTableDataSource(this.categories);
+            // this.categories = this.categories.filter((prod) => {
+            //   return prod.shortId !== uuid;
+            // });
+            // this.dataSource = new MatTableDataSource(this.categories);
+            this.ngAfterViewInit();
           },
           error: () => {
             this.notifier.notify('warning', 'Wystąpił błąd');
@@ -161,6 +163,27 @@ export class CategoryAdministrationComponent
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
+    });
+  }
+
+  addCategory() {
+    const dialogRef = this.dialog.open(DialogCategoryAddComponent, {
+      width: '400px',
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '200ms',
+    });
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result) {
+        this.categoryService.addCategory({ name: result }).subscribe({
+          next: () => {
+            this.notifier.notify('success', 'Pomyślnie dodano kategorię');
+            this.ngAfterViewInit();
+          },
+          error: () => {
+            this.notifier.notify('warning', 'Wystąpił błąd');
+          },
+        });
+      }
     });
   }
 }

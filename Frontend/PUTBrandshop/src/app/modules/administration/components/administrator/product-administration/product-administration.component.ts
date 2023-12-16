@@ -99,10 +99,11 @@ export class ProductAdministrationComponent
         this.productService.deleteProduct(uuid).subscribe({
           next: () => {
             this.notifier.notify('success', 'Pomyślnie usunięto produkt');
-            this.products = this.products.filter((prod) => {
-              return prod.uid !== uuid;
-            });
-            this.dataSource = new MatTableDataSource(this.products);
+            // this.products = this.products.filter((prod) => {
+            //   return prod.uid !== uuid;
+            // });
+            // this.dataSource = new MatTableDataSource(this.products);
+            this.ngAfterViewInit();
           },
           error: () => {
             this.notifier.notify('warning', 'Wystąpił błąd');
