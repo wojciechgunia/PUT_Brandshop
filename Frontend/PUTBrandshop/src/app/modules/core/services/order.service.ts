@@ -2,12 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {
+  GetOrderAdminResponse,
   GetOrderResponse,
   GetOrdersResponse,
+  OrderResponse,
   PostOrder,
   PostOrderResponse,
 } from '../models/order.model';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,7 @@ export class OrderService {
       .pipe(
         tap((response) => {
           window.location.href = response.redirectUri;
-        }),
+        })
       );
   }
 
@@ -40,5 +42,39 @@ export class OrderService {
     return this.http.get<GetOrdersResponse[]>(`${this.apiUrl}`, {
       withCredentials: true,
     });
+  }
+
+  getOrdersAdmin(
+    pageIndex = 1,
+    itemsPerPage = 15
+  ): Observable<GetOrderAdminResponse> {
+    let params = new HttpParams()
+      .append('_page', pageIndex)
+      .append('_limit', itemsPerPage);
+    return this.http
+      .get<GetOrderResponse[]>(`${this.apiUrl}/order-list`, {
+        observe: 'response',
+        params,
+        withCredentials: true,
+      })
+      .pipe(
+        map((response) => {
+          if (!response.body) {
+            return { orders: [], totalCount: 0 };
+          } else {
+            const totalCount = Number(response.headers.get('X-Total-Count'));
+            return { orders: [...response.body], totalCount };
+          }
+        })
+      );
+  }
+
+  changeStatus(uuid: string, status: string): Observable<OrderResponse> {
+    let params = new HttpParams().append('uuid', uuid).append('status', status);
+    return this.http.patch<OrderResponse>(
+      `${this.apiUrl}/status-set`,
+      {},
+      { withCredentials: true, params }
+    );
   }
 }

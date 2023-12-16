@@ -1,7 +1,7 @@
 <div class="basket-product">
   <div class="basket-product-img-wrapper">
     <img
-      [src]="basketProduct.imageUrl.replace('image?uid', 'image?uid=')"
+      [src]="basketProduct.imageUrl"
       [alt]="basketProduct.name"
       class="basket-product-img"
     />
@@ -10,8 +10,8 @@
     {{ basketProduct.name }}
   </div>
   <div class="basket-product-prices">
-    <span>{{ basketProduct.price | currency: 'zł' }}</span>
+    <span>{{ basketProduct.price | currency : 'zł' }}</span>
     <span> x {{ basketProduct.quantity }}</span>
-    <span> {{ basketProduct.summaryPrice | currency: 'zł' }}</span>
+    <span> {{ basketProduct.summaryPrice | currency : 'zł' }}</span>
   </div>
 </div>

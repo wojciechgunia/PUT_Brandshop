@@ -25,5 +25,6 @@ import { PaymentFormComponent } from './components/order-create/payment-form/pay
     PaymentFormComponent,
   ],
   imports: [SharedModule, OrderRoutingModule],
+  exports: [OrderProductComponent],
 })
 export class OrderModule {}

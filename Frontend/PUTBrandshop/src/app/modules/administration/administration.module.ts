@@ -16,6 +16,7 @@ import { DialogConfirmComponent } from './components/administrator/dialog-confir
 import { ProductEditorComponent } from './components/administrator/product-administration/product-editor/product-editor.component';
 import { DialogImageComponent } from './components/administrator/dialog-image/dialog-image.component';
 import { DialogChangeRoleComponent } from './components/administrator/user-administration/dialog-change-role/dialog-change-role.component';
+import { OrderModule } from '../order/order.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,11 @@ import { DialogChangeRoleComponent } from './components/administrator/user-admin
     DialogImageComponent,
     DialogChangeRoleComponent,
   ],
-  imports: [SharedModule, AdministrationRoutingModule, AngularEditorModule],
+  imports: [
+    SharedModule,
+    AdministrationRoutingModule,
+    AngularEditorModule,
+    OrderModule,
+  ],
 })
 export class AdministrationModule {}
