@@ -152,4 +152,47 @@ public class OrderMediator
         }
         return ResponseEntity.badRequest().body(new Response("Bad request"));
     }
+
+    public ResponseEntity<?> getAdminOrders(String uuid, int page, int limit)
+    {
+        if (uuid == null || uuid.isEmpty())
+        {
+            List<OrderDTO> orderDTOList = new ArrayList<>();
+            orderService.getOrders().forEach(value ->
+            {
+                List<OrderItems> itemsList = itemService.getByOrder(value);
+                if(itemsList.isEmpty()) throw new OrderDontExistException();
+                List<Items> itemsDTO = new ArrayList<>();
+                AtomicReference<Double> summary = new AtomicReference<>(0d);
+                itemsList.forEach(value2 -> {
+                    Items items = orderItemsToItems.toItems(value2);
+                    items.setImageUrl(productService.getProduct(value2.getProduct()).getImageUrls()[0]);
+                    itemsDTO.add(items);
+                    summary.set(summary.get()+value2.getPriceSummary());
+                });
+                OrderDTO orderDTO = orderToOrderDTO.toOrderDTO(value);
+                summary.set(summary.get() + orderDTO.getDeliver().getPrice());
+                orderDTO.setSummaryPrice(summary.get());
+                orderDTO.setItems(itemsDTO);
+                orderDTOList.add(orderDTO);
+            });
+            return ResponseEntity.ok(orderDTOList);
+        }
+        Order order = orderService.getOrdersByUuid(uuid);
+        List<OrderItems> itemsList = itemService.getByOrder(order);
+        if(itemsList.isEmpty()) throw new OrderDontExistException();
+        List<Items> itemsDTO = new ArrayList<>();
+        AtomicReference<Double> summary = new AtomicReference<>(0d);
+        itemsList.forEach(value -> {
+            Items items = orderItemsToItems.toItems(value);
+            items.setImageUrl(productService.getProduct(value.getProduct()).getImageUrls()[0]);
+            itemsDTO.add(items);
+            summary.set(summary.get()+value.getPriceSummary());
+        });
+        OrderDTO orderDTO = orderToOrderDTO.toOrderDTO(order);
+        summary.set(summary.get() + orderDTO.getDeliver().getPrice());
+        orderDTO.setSummaryPrice(summary.get());
+        orderDTO.setItems(itemsDTO);
+        return ResponseEntity.ok(orderDTO);
+    }
 }

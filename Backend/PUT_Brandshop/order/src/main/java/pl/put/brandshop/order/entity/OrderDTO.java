@@ -20,6 +20,7 @@ public class OrderDTO
     private Address address;
     private DeliverDTO deliver;
     private PaymentDTO payment;
+    private String client;
     private List<Items> items;
     private double summaryPrice;
 }

@@ -38,9 +38,10 @@ public class OrderController
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/order-list")
-    public ResponseEntity<?> getAll(@RequestParam(required = false) String uuid)
+    public ResponseEntity<?> getAll(@RequestParam(required = false) String uuid,@RequestParam(required = false,defaultValue = "1") int _page,
+    @RequestParam(required = false,defaultValue = "10") int _limit)
     {
-        return orderMediator.getOrders(uuid);
+        return orderMediator.getAdminOrders(uuid,_page,_limit);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/status-set")

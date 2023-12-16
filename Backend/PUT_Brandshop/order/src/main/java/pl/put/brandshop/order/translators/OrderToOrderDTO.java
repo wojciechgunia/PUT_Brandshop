@@ -18,6 +18,7 @@ public abstract class OrderToOrderDTO
             @Mapping(expression = "java(translateToAddress(order))",target = "address"),
             @Mapping(expression = "java(translateToDeliver(order.getDeliver()))",target = "deliver"),
             @Mapping(expression = "java(translateToDeliver(order.getPayment()))",target = "payment"),
+            @Mapping(source = "client",target = "client"),
     })
     protected abstract OrderDTO toDTO(Order order);
 
