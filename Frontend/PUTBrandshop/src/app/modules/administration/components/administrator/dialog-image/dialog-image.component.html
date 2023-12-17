@@ -1,1 +1,23 @@
-<p>dialog-image works!</p>
+<h1 mat-dialog-title>Multimedia</h1>
+<div mat-dialog-content class="d-flex flex-wrap justify-content-around">
+  <div class="card">add</div>
+  <div
+    class="card"
+    *ngFor="let image of images"
+    [class.selected]="image === selectedImage"
+    (click)="selectImage(image)"
+  >
+    <img [src]="image.url" alt="picture" />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close [mat-dialog-close]="">Anuluj</button>
+  <button
+    mat-button
+    mat-dialog-close
+    cdkFocusInitial
+    [mat-dialog-close]="selectedImage"
+  >
+    Dodaj zdjęcie
+  </button>
+</div>

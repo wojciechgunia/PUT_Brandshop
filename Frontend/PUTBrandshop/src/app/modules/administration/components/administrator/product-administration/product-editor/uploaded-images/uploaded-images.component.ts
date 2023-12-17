@@ -16,16 +16,7 @@ export class UploadedImagesComponent {
   constructor(private imageService: ImageService) {}
 
   deleteImage(url: string) {
-    const [, uid] = url.split('uid=');
-    this.imageService.deleteImage(uid).subscribe({
-      next: () => {
-        this.imageUrls = this.imageUrls.filter((image) => image.url != url);
-        // console.log(this.imageUrls);
-        this.deleteImageUrl.emit([...this.imageUrls]);
-      },
-      error: (err) => {
-        this.errorMsg = err;
-      },
-    });
+    this.imageUrls = this.imageUrls.filter((image) => image.url != url);
+    this.deleteImageUrl.emit([...this.imageUrls]);
   }
 }

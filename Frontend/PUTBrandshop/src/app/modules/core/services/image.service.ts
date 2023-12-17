@@ -5,21 +5,24 @@ import {
   HttpParams,
   HttpResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
   PostImageResponse,
   Image,
   DeleteImageResponse,
+  PostImagesResponse,
 } from '../models/image.model';
 import { AngularEditorConfig, UploadResponse } from '@kolkov/angular-editor';
+import { DialogImageComponent } from '../../administration/components/administrator/dialog-image/dialog-image.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ImageService {
-  private apiUrl = `${environment.apiUrl}/image`;
+  private apiUrl = `${environment.apiUrl}/file`;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -48,13 +51,40 @@ export class ImageService {
       },
     ],
     uploadWithCredentials: true,
-    uploadUrl: `${this.apiUrl}`,
-    upload: (file: File) => {
-      return this.uploadImage(file);
+    uploadUrl: '',
+    upload: () => {
+      return this.addFile();
     },
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public dialog: MatDialog) {}
+
+  addFile(): Observable<HttpResponse<UploadResponse>> {
+    const dialogRef = this.dialog.open(DialogImageComponent, {
+      width: '80%',
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '200ms',
+    });
+    let obs: EventEmitter<HttpResponse<UploadResponse>> = new EventEmitter();
+    dialogRef.afterClosed().subscribe((result: Image) => {
+      if (result) {
+        let resultimg: Image = result;
+        const uploadResponse: UploadResponse = {
+          imageUrl: resultimg!.url,
+        };
+        obs.emit(
+          new HttpResponse<UploadResponse>({
+            headers: undefined,
+            status: 400,
+            statusText: undefined,
+            url: undefined,
+            body: uploadResponse,
+          })
+        );
+      }
+    });
+    return obs;
+  }
 
   addImage(formData: FormData): Observable<Image> {
     return this.http
@@ -64,7 +94,33 @@ export class ImageService {
       .pipe(
         map((resp) => {
           return { url: `${this.apiUrl}?uid=${resp.uid}` };
-        }),
+        })
+      );
+  }
+
+  getImages(pageIndex = 1, itemsPerPage = 10): Observable<Image[]> {
+    let params = new HttpParams()
+      .append('_page', pageIndex)
+      .append('_limit', itemsPerPage);
+    return this.http
+      .get<PostImagesResponse>(`${this.apiUrl}/get-all`, {
+        withCredentials: true,
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          let images: Image[] = [];
+          if (response.body) {
+            let len = response.body.fileDTOS.length;
+            for (let i = 0; i < len; i++) {
+              images.push({
+                url: `${this.apiUrl}?uid=${response.body.fileDTOS.at(i)?.uid}`,
+              });
+            }
+          }
+          return images;
+        })
       );
   }
 
@@ -93,15 +149,15 @@ export class ImageService {
             });
           }
           return event;
-        }),
+        })
       );
   }
 
-  deleteImage(uid: string): Observable<DeleteImageResponse> {
-    const params = new HttpParams().append('uid', uid);
-    return this.http.delete<DeleteImageResponse>(`${this.apiUrl}`, {
-      params,
-      withCredentials: true,
-    });
-  }
+  // deleteImage(uid: string): Observable<DeleteImageResponse> {
+  //   const params = new HttpParams().append('uid', uid);
+  //   return this.http.delete<DeleteImageResponse>(`${this.apiUrl}`, {
+  //     params,
+  //     withCredentials: true,
+  //   });
+  // }
 }

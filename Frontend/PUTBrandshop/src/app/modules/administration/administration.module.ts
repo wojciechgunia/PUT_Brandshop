@@ -3,11 +3,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { AdministrationRoutingModule } from './administration-routing.module';
 import { AdministratorComponent } from './components/administrator/administrator.component';
-import { AddCategoryComponent } from './components/administrator/add-category/add-category.component';
-import { EditProductsComponent } from './components/administrator/edit-products/edit-products.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddProductFormComponent } from './components/administrator/edit-products/add-product-form/add-product-form.component';
-import { UploadedImagesComponent } from './components/administrator/edit-products/add-product-form/uploaded-images/uploaded-images.component';
 import { UserAdministrationComponent } from './components/administrator/user-administration/user-administration.component';
 import { ProductAdministrationComponent } from './components/administrator/product-administration/product-administration.component';
 import { CategoryAdministrationComponent } from './components/administrator/category-administration/category-administration.component';
@@ -19,13 +15,13 @@ import { DialogChangeRoleComponent } from './components/administrator/user-admin
 import { OrderModule } from '../order/order.module';
 import { DialogCategoryAddComponent } from './components/administrator/category-administration/dialog-category-add/dialog-category-add.component';
 import { DialogSetStatusComponent } from './components/administrator/order-list/dialog-set-status/dialog-set-status.component';
+import { RouterLink } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { UploadedImagesComponent } from './components/administrator/product-administration/product-editor/uploaded-images/uploaded-images.component';
 
 @NgModule({
   declarations: [
     AdministratorComponent,
-    AddCategoryComponent,
-    EditProductsComponent,
-    AddProductFormComponent,
     UploadedImagesComponent,
     UserAdministrationComponent,
     ProductAdministrationComponent,
@@ -39,10 +35,12 @@ import { DialogSetStatusComponent } from './components/administrator/order-list/
     DialogSetStatusComponent,
   ],
   imports: [
+    HttpClientModule,
     SharedModule,
     AdministrationRoutingModule,
     AngularEditorModule,
     OrderModule,
+    RouterLink,
   ],
 })
 export class AdministrationModule {}
