@@ -140,4 +140,19 @@ export class ProductsService {
       withCredentials: true,
     });
   }
+
+  editProduct(
+    addProductData: AddProductData,
+    uid: string
+  ): Observable<PostProductResponse> {
+    let params = new HttpParams().append('uid', uid);
+    return this.http.patch<PostProductResponse>(
+      `${this.apiUrl}`,
+      addProductData,
+      {
+        withCredentials: true,
+        params,
+      }
+    );
+  }
 }

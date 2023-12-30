@@ -1,9 +1,13 @@
 <section *ngIf="order">
+  <div class="d-flex navig" (click)="navigateToList()">
+    <mat-icon>arrow_back</mat-icon>&nbsp;&nbsp;
+    <p class="pb-1">Powrót</p>
+  </div>
   <p>Numer zamówienia: {{ order.orders }}</p>
   <p>
-    Status zamówienia: <b>{{ order.status }}</b>
+    Status zamówienia: <b>{{ changeStatusName(order.status) }}</b>
   </p>
-  <p>Kwota zamówienia: {{ order.summaryPrice | currency: 'zł' }}</p>
+  <p>Kwota zamówienia: {{ order.summaryPrice | currency : 'zł' }}</p>
   <br />
   <div class="row my-2" *ngIf="order.customerDetails as customer">
     <div class="col-md-6" *ngIf="order.address as address">

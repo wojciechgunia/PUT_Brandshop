@@ -4,3 +4,7 @@
   align-items: center;
   margin-bottom: 5px;
 }
+
+.order-list-item:hover {
+  color: var(--accent-color);
+}

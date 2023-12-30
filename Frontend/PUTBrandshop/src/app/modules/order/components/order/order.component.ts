@@ -12,10 +12,7 @@ export class OrderComponent implements OnInit {
   orders!: GetOrdersResponse[];
   errorMsg: null | string = null;
 
-  constructor(
-    private orderService: OrderService,
-    private router: Router,
-  ) {}
+  constructor(private orderService: OrderService, private router: Router) {}
 
   ngOnInit(): void {
     this.orderService.getOrders().subscribe({
@@ -30,5 +27,9 @@ export class OrderComponent implements OnInit {
 
   navigateToDetails(uuid: string) {
     this.router.navigate(['zamowienia', uuid]);
+  }
+
+  changeStatusName(name: string) {
+    return this.orderService.changeStatusName(name);
   }
 }

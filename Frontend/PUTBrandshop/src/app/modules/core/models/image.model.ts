@@ -11,6 +11,11 @@ export interface Image {
   url: string;
 }
 
+export interface ImageList {
+  images: Image[];
+  totalCount: number;
+}
+
 export interface DeleteImageResponse {
   timestamp: string;
   message: string;

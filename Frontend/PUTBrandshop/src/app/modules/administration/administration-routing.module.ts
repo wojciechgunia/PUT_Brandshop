@@ -17,6 +17,7 @@ const routes: Routes = [
       { path: 'kategorie', component: CategoryAdministrationComponent },
       { path: 'produkty', component: ProductAdministrationComponent },
       { path: 'produkty/edytor', component: ProductEditorComponent },
+      { path: 'produkty/edytor/:uid', component: ProductEditorComponent },
       { path: 'uzytkownicy', component: UserAdministrationComponent },
       { path: 'zamowienia', component: OrderListComponent },
     ],

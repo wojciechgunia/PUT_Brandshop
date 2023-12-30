@@ -84,6 +84,13 @@ export class ProductAdministrationComponent
     this.sub.unsubscribe();
   }
 
+  getProductEditUrl(name: string, createAt: string) {
+    return `/admin/panel/produkty/edytor/${name}-${createAt.replaceAll(
+      '-',
+      ''
+    )}`;
+  }
+
   deleteProduct(uuid: string, name: string) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       data: {

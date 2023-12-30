@@ -22,3 +22,12 @@ button {
   height: 52px !important;
   font-size: 1.1rem;
 }
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}

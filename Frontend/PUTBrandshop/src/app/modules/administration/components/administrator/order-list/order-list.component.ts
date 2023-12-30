@@ -145,41 +145,6 @@ export class OrderListComponent implements AfterViewInit, OnDestroy {
   }
 
   changeStatusName(name: string) {
-    switch (name) {
-      case 'PENDING': {
-        return 'Zamówienie złożone';
-      }
-
-      case 'WAITING_FOR_CONFIRMATION': {
-        return 'Oczekuje na potwierdzenie';
-      }
-
-      case 'COMPLETED': {
-        return 'Zamówienie złożone';
-      }
-
-      case 'PAID': {
-        return 'Zamówienie opłacone';
-      }
-
-      case 'CANCELED': {
-        return 'Zamówienie anulowane';
-      }
-
-      case 'SENT': {
-        return 'Zamówienie wysłane';
-      }
-
-      case 'DELIVERED': {
-        return 'Zamówienie zrealizowane';
-      }
-
-      case 'RETURNED': {
-        return 'Zamówienie zwrócone';
-      }
-
-      default:
-        return '';
-    }
+    return this.orderService.changeStatusName(name);
   }
 }

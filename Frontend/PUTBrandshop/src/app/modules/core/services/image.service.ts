@@ -13,6 +13,7 @@ import {
   Image,
   DeleteImageResponse,
   PostImagesResponse,
+  ImageList,
 } from '../models/image.model';
 import { AngularEditorConfig, UploadResponse } from '@kolkov/angular-editor';
 import { DialogImageComponent } from '../../administration/components/administrator/dialog-image/dialog-image.component';
@@ -34,7 +35,7 @@ export class ImageService {
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
     sanitize: false,
-    toolbarHiddenButtons: [['insertVideo']],
+    toolbarHiddenButtons: [['insertVideo', 'insertImage']],
     customClasses: [
       {
         name: 'quote',
@@ -98,7 +99,7 @@ export class ImageService {
       );
   }
 
-  getImages(pageIndex = 1, itemsPerPage = 10): Observable<Image[]> {
+  getImages(pageIndex = 1, itemsPerPage = 15): Observable<ImageList> {
     let params = new HttpParams()
       .append('_page', pageIndex)
       .append('_limit', itemsPerPage);
@@ -119,7 +120,12 @@ export class ImageService {
               });
             }
           }
-          return images;
+          if (!response.body) {
+            return { images: [], totalCount: 0 };
+          } else {
+            const totalCount = Number(response.headers.get('X-Total-Count'));
+            return { images, totalCount };
+          }
         })
       );
   }

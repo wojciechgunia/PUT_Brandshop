@@ -132,6 +132,7 @@
           color="primary"
           class="text-center"
           matTooltip="Edytuj produkt"
+          [routerLink]="getProductEditUrl(row.name, row.createAt)"
         >
           <mat-icon style="margin-left: 6px">edit</mat-icon>
         </button>
