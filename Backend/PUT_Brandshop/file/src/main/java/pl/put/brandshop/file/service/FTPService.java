@@ -72,7 +72,7 @@ public class FTPService
             }
             ftpClient.logout();
             ftpClient.disconnect();
-            return FileEntity.builder().path(remoteFilePath).uid(UUID.randomUUID().toString()).createAt(LocalDate.now()).isUsed(false).build();
+            return FileEntity.builder().path(remoteFilePath).uid(UUID.randomUUID().toString()).createAt(LocalDate.now()).isUsed(true).build();
         }
         catch (IOException e)
         {
