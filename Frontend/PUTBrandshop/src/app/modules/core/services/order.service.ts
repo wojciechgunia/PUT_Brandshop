@@ -112,6 +112,10 @@ export class OrderService {
         return 'Zamówienie zwrócone';
       }
 
+      case 'READY': {
+        return 'Gotowe do odbioru';
+      }
+
       default:
         return '';
     }

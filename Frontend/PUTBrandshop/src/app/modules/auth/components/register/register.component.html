@@ -70,7 +70,12 @@
             type="submit"
             [disabled]="registerForm.invalid"
           >
-            Zarejestruj się
+            <mat-spinner
+              *ngIf="loading$ | async as load; else notLoad"
+              class="spinner"
+              color="accent"
+            ></mat-spinner>
+            <ng-template #notLoad>Zarejestruj się</ng-template>
           </button>
         </div>
       </div>

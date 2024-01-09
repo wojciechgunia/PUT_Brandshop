@@ -1,6 +1,7 @@
 <div
   id="carouselExampleDark"
   class="carousel slide"
+  data-interval="0"
   data-bs-ride="carousel carousel-dark"
 >
   <div class="carousel-indicators">
@@ -17,11 +18,13 @@
   </div>
   <div class="carousel-inner w-100 h-100">
     <div
-      class="carousel-item img-box"
+      class="carousel-item w-100 h-100"
       *ngFor="let image of imageUrls; let first = first"
       [ngClass]="{ active: first }"
     >
-      <img [src]="image" class="img-img" [alt]="productName" />
+      <div class="img-box w-100 h-100">
+        <img [src]="image" class="img-img" [alt]="productName" />
+      </div>
     </div>
   </div>
   <button

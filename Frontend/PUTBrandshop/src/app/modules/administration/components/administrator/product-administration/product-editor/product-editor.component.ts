@@ -105,7 +105,7 @@ export class ProductEditorComponent implements AfterViewInit {
         if (result) {
           this.controls.descHtml.setValue(
             this.controls.descHtml.value +
-              `<img src="${result.url}" alt="Zdjęcie produktu"></img>`
+              `<img src="${result.url}" alt="Zdjęcie produktu" style="max-width: 70vw;max-height: 50vh;"></img>`
           );
         }
       });
@@ -155,7 +155,7 @@ export class ProductEditorComponent implements AfterViewInit {
       parametersObject[item.key] = item.value;
     });
     const parameters = `${JSON.stringify(parametersObject)}`;
-    console.log(parameters);
+    // console.log(parameters);
     const imagesUid = this.imageUrls.map((url) => {
       const [, uid] = url.url.split('uid=');
       return uid;
