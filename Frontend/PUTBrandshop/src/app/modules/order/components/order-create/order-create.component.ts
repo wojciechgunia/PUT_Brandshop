@@ -15,6 +15,7 @@ import { NotifierService } from 'angular-notifier';
 })
 export class OrderCreateComponent {
   errorMsg: string | null = null;
+  loading = false;
 
   @ViewChild(CustomerFormComponent) customerFormComp!: CustomerFormComponent;
   @ViewChild(AddressFormComponent) addressFormComp!: AddressFormComponent;
@@ -48,6 +49,7 @@ export class OrderCreateComponent {
       this.deliveryFormComp.deliverForm.valid &&
       this.paymentFormComp.paymentForm.valid
     ) {
+      this.loading = true;
       this.orderService
         .addOrder({
           address: this.addressFormComp.addressForm.getRawValue(),
@@ -58,9 +60,11 @@ export class OrderCreateComponent {
         .subscribe({
           next: () => {
             this.notifier.notify('success', 'Zamówienie zostało złożone');
+            this.loading = false;
           },
           error: (err) => {
             this.errorMsg = err;
+            this.loading = false;
           },
         });
     }

@@ -36,7 +36,12 @@
     ></app-alert>
     <div class="d-flex justify-content-center button-submit mt-4 mb-5">
       <button mat-raised-button color="primary" (click)="order()">
-        Kupuję i płacę
+        <mat-spinner
+          *ngIf="loading as load; else notLoad"
+          class="spinner"
+          color="accent"
+        ></mat-spinner>
+        <ng-template #notLoad>Kupuję i płacę</ng-template>
       </button>
     </div>
   </div>
