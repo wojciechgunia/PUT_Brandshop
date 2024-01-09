@@ -1,5 +1,13 @@
 <h1 mat-dialog-title>Multimedia</h1>
 <div mat-dialog-content class="d-flex flex-wrap justify-content-around">
+  <div style="width: 100%">
+    <mat-paginator
+      [pageSizeOptions]="[15, 30, 45, 60]"
+      [length]="totalCount"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
   <div
     class="card d-flex justify-content-center align-items-center"
     (click)="addPhoto()"
@@ -25,12 +33,6 @@
   </div>
   <!-- [pageSizeOptions]="[15, 30, 45, 60]" -->
   <div style="width: 100%">
-    <mat-paginator
-      [pageSizeOptions]="[15, 30, 45, 60]"
-      [length]="totalCount"
-      showFirstLastButtons
-    >
-    </mat-paginator>
     <app-alert
       *ngIf="error"
       [message]="error"
