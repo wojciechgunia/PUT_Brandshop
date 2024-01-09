@@ -8,6 +8,7 @@ public enum Status
     PAID,
     CANCELED,
     SENT,
+    READY,
     DELIVERED,
     RETURNED
 }
