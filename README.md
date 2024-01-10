@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img height="200" src="https://github.com/wojciechgunia/PUT_Brandshop_PO/blob/main/Projekt.PNG"  />
+  <img height="400" src="https://github.com/wojciechgunia/PUT_Brandshop_PO/blob/main/Projekt.PNG"  />
 </div>
 
 ###
