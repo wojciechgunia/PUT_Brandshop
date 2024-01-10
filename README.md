@@ -1,3 +1,10 @@
+
+<div align="center">
+  <img height="200" src="https://github.com/wojciechgunia/PUT_Brandshop_PO/blob/main/Projekt.PNG"  />
+</div>
+
+###
+
 <h1 align="left">Projekt: PUT Brandshop</h1>
 
 ###
