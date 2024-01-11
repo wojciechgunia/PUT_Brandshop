@@ -65,6 +65,6 @@
 
 ###
 
-<p align="left">- Zainstaluj Angular w wersji 16 (instrukcja: https://www.plukasiewicz.net/Angular/Angular8Installation)<br>- Otwórz folder frontend/PUTBrandshop za pomocą edytora kodu<br>- Uruchom instalację poleceniem `npm install` w konsoli<br>- Uruchom angulara za pomocą polecenia `ng start`</p>
+<p align="left">- Zainstaluj Angular w wersji 16 (instrukcja: https://www.plukasiewicz.net/Angular/Angular8Installation)<br>- Otwórz folder frontend/PUTBrandshop za pomocą edytora kodu<br>- Uruchom instalację poleceniem `npm install` w konsoli<br>- Uruchom angulara za pomocą polecenia `ng s`</p>
 
 ###
