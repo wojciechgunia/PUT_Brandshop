@@ -60,7 +60,7 @@
   <img width="12" />
   <img src="https://cdn.simpleicons.org/nodedotjs/339933" height="40" alt="nodejs logo"  />
   <img width="12" />
-  <img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" height="40" alt="vscode logo"  />
+  <img src="https://skillicons.dev/icons?i=webstorm" height="40" alt="webstorm logo"  />
 </div>
 
 ###
