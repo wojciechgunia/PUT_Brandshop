@@ -81,3 +81,43 @@
 ###
 
 <h2 align="left">Screenshots:</h2>
+
+<details>
+  <summary>Strona główna sklepu 🏠</summary>
+  <img src="screenshots/PUT Brandshop Screen (1).png" alt="Strona główna sklepu"/>
+</details>
+
+<details>
+  <summary>Strona logowania ➡🚪</summary>
+  <img src="screenshots/PUT Brandshop Screen (2).png" alt="Strona logowania"/>
+</details>
+
+<details>
+  <summary>Formularz rejestracji ➕👤</summary>
+  <img src="screenshots/PUT Brandshop Screen (3).png" alt="Formularz rejestracji"/>
+</details>
+
+<details>
+  <summary>Wyszukiwarka produktów 🔍</summary>
+  <img src="screenshots/PUT Brandshop Screen (4).png" alt="Wyszukiwarka produktów"/>
+</details>
+
+<details>
+  <summary>Strona koszyka 🛒</summary>
+  <img src="screenshots/PUT Brandshop Screen (5).png" alt="Strona koszyka"/>
+</details>
+
+<details>
+  <summary>Formularz składania zamówienia 💵💳</summary>
+  <img src="screenshots/PUT Brandshop Screen (6).png" alt="Formularz składania zamówienia"/>
+</details>
+
+<details>
+  <summary>Strona ze szczegółami zamówienia 🧾</summary>
+  <img src="screenshots/PUT Brandshop Screen (7).png" alt="Strona ze szczegółami zamówienia"/>
+</details>
+
+<details>
+  <summary>Panel administracyjny - zakładka zarządzania zamówieniami 🚛🚚</summary>
+  <img src="screenshots/PUT Brandshop Screen (8).png" alt="Panel administracyjny - zakładka zarządzania zamówieniami"/>
+</details>
