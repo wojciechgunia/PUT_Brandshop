@@ -17,7 +17,13 @@
 
 ###
 
-<p align="left">Celem projektu jest opracowanie witryny internetowej realizującej funkcję sklepu<br>internetowego dla PUT Brandshop, sklepu z gadżetami Politechniki Poznańskiej.<br>Sklep pozwalać ma na internetowy zakup gadżetów i płatność online za zakupy.<br>System skierowany jest przede wszystkim dla studentów i pracowników politechniki chcących<br>zakupić gadżety w Brandshop PUT, aby uprościć i przyspieszyć proces składania zamówień.</p>
+<p align="left">Celem projektu jest stworzenie nowoczesnej i funkcjonalnej witryny internetowej, która pełni rolę sklepu online dla PUT Brandshop – sklepu z gadżetami Politechniki Poznańskiej. Projekt ma na celu umożliwienie studentom i pracownikom uczelni łatwego i wygodnego zakupu gadżetów związanych z Politechniką Poznańską, takich jak odzież, akcesoria i inne pamiątki.</p>
+
+<p align="left">Sklep internetowy będzie oferował prostą i intuicyjną platformę zakupową, która umożliwi użytkownikom szybkie przeglądanie oferty, dodawanie produktów do koszyka oraz finalizowanie zamówień. System będzie wyposażony w funkcjonalność płatności online, co pozwoli na wygodne i bezpieczne dokonywanie transakcji w czasie rzeczywistym.</p>
+
+<p align="left">Projekt koncentruje się na uproszczeniu oraz przyspieszeniu procesu zakupowego dla społeczności akademickiej Politechniki Poznańskiej, oferując łatwy dostęp do produktów oraz wygodną metodę zakupu. Dzięki temu, użytkownicy zyskają nowoczesne narzędzie, które pozwoli im na szybkie i bezproblemowe zakupy bez konieczności odwiedzania fizycznego sklepu.</p>
+
+<p align="left">Platforma będzie zaprojektowana w sposób responsywny, dostosowując się do różnych urządzeń, co zapewni wygodę użytkowania zarówno na komputerach stacjonarnych, jak i urządzeniach mobilnych.</p>
 
 ###
 
@@ -68,3 +74,7 @@
 <p align="left">- Zainstaluj Angular w wersji 16 (instrukcja: https://www.plukasiewicz.net/Angular/Angular8Installation)<br>- Otwórz folder frontend/PUTBrandshop za pomocą edytora kodu<br>- Uruchom instalację poleceniem `npm install` w konsoli<br>- Uruchom angulara za pomocą polecenia `ng s`</p>
 
 ###
+
+<h2 align="left">Screenshots:</h2>
+
+
