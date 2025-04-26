@@ -5,6 +5,10 @@
 
 ###
 
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/wojciechgunia/PUT_Brandshop/blob/main/README-en.md)
+
+###
+
 <h1 align="left">Projekt: PUT Brandshop</h1>
 
 ###
