@@ -9,7 +9,7 @@
 
 ###
 
-<p align="left">Przedmiot: PROGRAMOWANIE OBIEKTOWE<br>Wojciech Gunia</p>
+<p align="left">Uczelnia: Politechnika Poznańska<br>Przedmiot: APLIKACJE INTERNETOWE<br>Autor: Wojciech Gunia</p>
 
 ###
 
